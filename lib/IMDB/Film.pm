@@ -1026,10 +1026,11 @@ sub cast {
 		}
 		while($tag = $parser->get_tag()) {
 			last if $tag->[0] eq 'a' && $tag->[1]{href} && $tag->[1]{href} =~ /fullcredits/i;
-			if($tag->[0] eq 'td' && $tag->[1]{class} && $tag->[1]{class} eq 'name') {
+			if($tag->[0] eq 'td' && $tag->[1]{class} && $tag->[1]{class} eq 'itemprop') {				
 				$tag = $parser->get_tag('a');
-				if($tag->[1]{href} && $tag->[1]{href} =~ m#name/nm(\d+?)/#) {
-					$person = $parser->get_text;
+				if($tag->[1]{href} && $tag->[1]{href} =~ m#name/nm(\d+?)/#) {					
+					$parser->get_tag("span");
+					$person = $parser->get_text;					
 					$id = $1;	
 					my $text = $parser->get_trimmed_text('/tr');
 					($role) = $text =~ /.*?\s+(.*)$/;
